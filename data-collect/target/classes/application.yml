@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: flink-ananly-data-collect
+  mandatory-file-encoding: UTF-8
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+logging:
+  level:
+    root: info
+  file:
+    max-size: 15MB
+    name: flink-ananly-register-center.log
+    path: logs
+  pattern:
+    dateformat: yyyy-MM-dd HH:mm:ss.SSS
+server:
+  port: 9092
+  undertow:
+    accesslog:
+      enabled: true
+      dir: undertow-access-logs
+      pattern: common
+      rotate: true
+      prefix: flink-ananly-register-center-access-log.
+      suffix: log
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    shutdown:
+      enabled: true
+eureka:
+  service:
+    host: 127.0.0.1
+    port: 8761
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://${eureka.service.host}:${eureka.service.port}/eureka/
+    enabled: true
+        
+      
